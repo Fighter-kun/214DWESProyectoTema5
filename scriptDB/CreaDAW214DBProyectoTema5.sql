@@ -17,7 +17,7 @@ USE DB214DWESProyectoTema5;
 --Crear la tabla T01_Usuario
 CREATE TABLE T01_Usuario (
     T01_CodUsuario CHAR(8) PRIMARY KEY,
-    T01_Password CHAR(8),
+    T01_Password VARCHAR(64),
     T01_DescUsuario VARCHAR(255),
     T01_NumConexiones INT DEFAULT 0,
     T01_FechaHoraUltimaConexion DATETIME DEFAULT CURRENT_TIMESTAMP,

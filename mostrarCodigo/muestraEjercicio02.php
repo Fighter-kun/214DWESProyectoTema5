@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <!--
-	Descripción: CodigoEjercicio1PDO
+	Descripción: CodigoEjercicio02
 	Autor: Carlos García Cachón
-	Fecha de creación/modificación: 02/11/2023
+	Fecha de creación/modificación: 22/11/2023
 -->
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="author" content="Carlos García Cachón">
-  <meta name="description" content="CodigoEjercicio1PDO">
-  <meta name="keywords" content="CodigoEjercicio1PDO">
+  <meta name="description" content="CodigoEjercicio02">
+  <meta name="keywords" content="CodigoEjercicio02">
   <meta name="generator" content="Apache NetBeans IDE 19">
   <meta name="generator" content="60">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +23,7 @@
 
 <body>
     <header class="text-center">
-        <h1>1. Conexión a la base de datos con la cuenta usuario y tratamiento de errores:</h1>
+        <h1>2. Desarrollo de un control de acceso con identificación del usuario basado en la función header() y en el uso de una tabla “Usuario” de la base de datos. (PDO):</h1>
     </header>
     <main>
         <div class="container justify-content-start">
@@ -34,7 +34,7 @@
                  * @since 02/11/2023
                  */
                 //Muestra el codigo del archivo de la ruta especificada.
-                highlight_file('../codigoPHP/ejercicio1PDO.php');
+                highlight_file('../codigoPHP/ejercicio02.php');
             ?>
         </div>
     </main>
@@ -45,7 +45,7 @@
                     IES LOS SAUCES 2023-24 </address>
             </div>
             <div class="footer-item">
-                <a href="../indexProyectoTema4.html" style="color: white; text-decoration: none;"> Inicio</a>
+                <a href="../indexProyectoTema5.html" style="color: white; text-decoration: none;"> Inicio</a>
             </div>
             <div class="footer-item">
                 <a href="https://github.com/Fighter-kun?tab=repositories" target="_blank"><img

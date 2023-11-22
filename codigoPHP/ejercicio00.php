@@ -27,25 +27,32 @@
     <main>
         <div class="container mt-3">
             <div class="row">
-                <div class="col text-center">
-                    <h2>phpinfo(): </h2>
-                    <?php
-                        /**
-                        * @author Carlos García Cachón
-                        * @version 1.0 
-                        * @since 21/11/2023
-                        */
-                        phpinfo();
-                    ?>
-                    <h2>Variables Superglobales: </h2>
-                </div>
                 <div class="col d-flex justify-content-start">
                     
                     <?php
                     $key = "";
                     $value = "";
-                    echo "<div class=''>";
+                    echo "<div>";
+                    echo ("<h2>Variables Superglobales: </h2>");
                     echo("<p>Contenido de <span style='color:green'>".'$GLOBALS'."</span> es de tipo <span>".gettype($GLOBALS)."</span> y tiene el valor ".print_r($GLOBALS)."</p>");
+                    if(isset($_SESSION)) {
+                        echo("<p>Contenido de <span style='color:green'>".'$_SESSION'."</span> es de tipo <span>".gettype($_SESSION)."</span> y contiene: <br>");
+                        foreach ($_SESSION as $key => $value) {
+                            echo "{$key} => {$value}<br>";
+                        }
+                    }else {
+                        echo("<p>Contenido de <span style='color:red'>".'$_SESSION'."</span> esta vacia.");
+                    }
+                    echo("</p>");
+                    if (empty($_COOKIE)) {
+                        echo("<p>Contenido de <span style='color:green'>".'$_COOKIE'."</span> es de tipo <span>".gettype($_COOKIE)."</span> y contiene: <br>");
+                        foreach ($_COOKIE as $key => $value) {
+                            echo "{$key} => {$value}<br>";
+                        }
+                    } else {
+                        echo("<p>Contenido de <span style='color:red'>".'$_COOKIE'."</span> esta vacia.");
+                    }
+                    echo("</p>");
                     echo("<p>Contenido de <span style='color:green'>".'$_SERVER'."</span> es de tipo <span>".gettype($_SERVER)."</span> y contiene: <br>");
                     foreach ($_SERVER as $key => $value) {
                         echo "{$key} => {$value}<br>";
@@ -78,24 +85,6 @@
                         echo("<p>Contenido de <span style='color:red'>".'$_FILES'."</span> esta vacia.");
                     }
                     echo("</p>");
-                    if (empty($_COOKIE)) {
-                        echo("<p>Contenido de <span style='color:green'>".'$_COOKIE'."</span> es de tipo <span>".gettype($_COOKIE)."</span> y contiene: <br>");
-                        foreach ($_COOKIE as $key => $value) {
-                            echo "{$key} => {$value}<br>";
-                        }
-                    } else {
-                        echo("<p>Contenido de <span style='color:red'>".'$_COOKIE'."</span> esta vacia.");
-                    }
-                    echo("</p>");
-                    if(isset($_SESSION)) {
-                        echo("<p>Contenido de <span style='color:green'>".'$_SESSION'."</span> es de tipo <span>".gettype($_SESSION)."</span> y contiene: <br>");
-                        foreach ($_SESSION as $key => $value) {
-                            echo "{$key} => {$value}<br>";
-                        }
-                    }else {
-                        echo("<p>Contenido de <span style='color:red'>".'$_SESSION'."</span> esta vacia.");
-                    }
-                    echo("</p>");
                     if (is_null($_REQUEST)) {
                         echo("<p>Contenido de <span style='color:green'>".'$_REQUEST'."</span> es de tipo <span>".gettype($_REQUEST)."</span> y contiene: <br>");
                         foreach ($_REQUEST as $key => $value) {
@@ -115,6 +104,17 @@
                     }
                     echo("</p>");
                     echo "</div>";
+                    ?>
+                </div> 
+                <div class="col text-center">
+                    <h2>phpinfo(): </h2>
+                    <?php
+                        /**
+                        * @author Carlos García Cachón
+                        * @version 1.0 
+                        * @since 21/11/2023
+                        */
+                        phpinfo();
                     ?>
                 </div>
             </div>
