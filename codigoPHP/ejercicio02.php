@@ -1,8 +1,58 @@
+<?php
+/**
+ * @author Ismael Ferreras García
+ * Mejorado por @author Carlos García Cachón
+ * @version 1.2
+ * @since 21/11/2023
+ */
+// Configuración de conexión con la base de datos
+require_once '../config/confDB.php';
+
+try {
+    // Establecemos la conexión por medio de PDO
+    $miDB = new PDO(DSN, USERNAME, PASSWORD);
+    echo ("<div class='fs-4 text'>CONEXIÓN EXITOSA POR PDO<br><br></div");
+
+    if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
+        header('WWW-Authenticate: Basic realm="Acceso restringido"');
+        header('HTTP/1.0 401 Unauthorized');
+        echo 'Se requieren credenciales para acceder a esta página.';
+        exit();
+    }
+
+    $usuario = $_SERVER['PHP_AUTH_USER'];
+    $contrasena = $_SERVER['PHP_AUTH_PW'];
+    $hashContrasena = hash('sha256', $usuario . $contrasena);
+
+    $sql = "SELECT * FROM T01_Usuario WHERE T01_CodUsuario = ? AND T01_Password = ?";
+    $stmt = $miDB->prepare($sql);
+    $stmt->execute([$usuario, $hashContrasena]);
+
+    $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+    if ($result) {
+        $nombre_usuario = $result->T01_CodUsuario;
+        echo ("<div class='fs-4 text'>Credenciales correctas<br><br>Bienvenido, $nombre_usuario!</div>");
+    } else {
+        header('HTTP/1.1 401 Unauthorized');
+        echo 'Credenciales incorrectas. Acceso denegado.';
+    }
+} catch (PDOException $miExcepcionPDO) {
+    $errorExcepcion = $miExcepcionPDO->getCode(); // Almacenamos el código del error de la excepción en la variable '$errorExcepcion'
+    $mensajeExcepcion = $miExcepcionPDO->getMessage(); // Almacenamos el mensaje de la excepción en la variable '$mensajeExcepcion'
+
+    echo "<span class='errorException'>Error: </span>" . $mensajeExcepcion . "<br>"; // Mostramos el mensaje de la excepción
+    echo "<span class='errorException'>Código del error: </span>" . $errorExcepcion; // Mostramos el código de la excepción
+    die($miExcepcionPDO);
+} finally {
+    unset($miDB); // Para cerrar la conexión
+}
+?>
 <!DOCTYPE html>
 <!--
         Descripción: CodigoEjercicio02
         Autor: Carlos García Cachón
-        Fecha de creación/modificación: 02/11/2023
+        Fecha de creación/modificación: 22/11/2023
 -->
 <html lang="es">
     <head>
@@ -28,83 +78,6 @@
             <div class="container mt-3">
                 <div class="row d-flex justify-content-start">
                     <div class="col">
-                        <?php
-                        /**
-                         * @author Carlos García Cachón
-                         * @version 1.0
-                         * @since 21/11/2023
-                         * @copyright Todos los derechos reservados Carlos García Cachón
-                         */
-                        // Incluimos el fichero de acceso a configuración de la BD
-                        require_once '../config/confDB.php';
-                        /**
-                         * @link https://www.php.net/manual/en/reserved.variables.server
-                         * 
-                         * $_SERVER['PHP_AUTH_USER'] -> se utiliza para obtener el nombre de usuario proporcionado por el cliente durante el proceso de autenticación HTTP básica.
-                         * $_SERVER['PHP_AUTH_PW'] -> se utiliza en el contexto de la autenticación básica HTTP. Esta variable contiene la contraseña proporcionada por el usuario durante el proceso de autenticación.
-                         */
-                        //Si el usuario no es PEPE y la contrasena no es paso entramos en el if
-                        if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
-                            /**
-                             * @link https://www.php.net/manual/es/function.header.php
-                             * 
-                             * Cuando el navegador recibe este encabezado, mostrará un cuadro de diálogo de inicio de sesión al usuario, solicitándole un nombre de usuario y una contraseña. El usuario debe proporcionar las credenciales correctas para acceder al recurso protegido.
-                             */
-                            header('WWW-Authenticate: Basic Realm="Contenido restringido"');
-
-                            /**
-                             * @link https://developer.mozilla.org/es/docs/Web/HTTP/Status/401
-                             * 
-                             * Cuando un cliente realiza una solicitud a un recurso protegido y no proporciona credenciales válidas o no proporciona credenciales en absoluto, el servidor puede responder con el código de estado 401 y el encabezado WWW-Authenticate para indicar al cliente que se requiere autenticación.
-                             */
-                            header('HTTP/1.0 401 Unauthorized');
-
-                            /**
-                             * @link https://www.php.net/manual/es/function.exit.php
-                             * 
-                             * La función exit en PHP se utiliza para finalizar la ejecución del script inmediatamente en el punto donde se llama
-                             */
-                            exit("<p style='color: black'>Error de autenticacion<p>");
-
-                            //Si las credenciales de autenticacion son correctas 
-                        } else {
-                            try {
-                                // Establecemos la conexión por medio de PDO
-                                $miDB = new PDO(DSN, USERNAME, PASSWORD);
-                                echo ("<span style='color:green;'>CONEXIÓN EXITOSA POR PDO</span><br><br>"); // Mensaje si la conexión es exitosa
-                                // Guardo los datos recuperados por '$_SERVER' y los almaceno en variables con nombres significativos
-                                $user = $_SERVER['PHP_AUTH_USER'];
-                                $password = $_SERVER['PHP_AUTH_PW'];
-
-                                $consulta = "SELECT T01_CodUsuario, T01_Password FROM T01_Usuario WHERE T01_CodUsuario='{$user}'"; //Creo la consulta y le paso el usuario a la consulta
-                                $resultadoConsulta = $miDB->prepare($consulta); // Preparo la consulta antes de ejecutarla
-                                $resultadoConsulta->execute(); //Ejecuto la consulta con el array de parametros 
-
-                                if ($resultadoConsulta->rowCount() > 0) {
-                                    $oUsuario = $resultadoConsulta->fetchObject(); //Obtengo el resultado de la consulta en un objeto
-                                    $passwordEncriptada = hash('sha256', ($user . $password)); //Encripto la password con el nombre de usuario mas su password pasada por teclado.
-                                    if (($oUsuario->T01_CodUsuario != $user) && ($oUsuario->T01_Password != $passwordEncriptada)) { //Compruebo si los datos coinciden con los de la base de datos
-                                        header('WWW-Authenticate: Basic realm="Contenido restringido"'); //Muestra de nuevo la cabecera de autentificacion
-                                        header("HTTP/1.0 401 Unauthorized"); //Redirige con el estado Unauthorized
-                                        exit;
-                                    } else { // Si no existe, se vuelven a pedir las credenciales hasta que se introduzcan correctamente
-                                        echo "Usuario y password correctos!" . "<br/>"; //Muestro un mensaje si todo ha ido bien.
-                                        echo "Nombre de usuario: " . $user . "<br/>"; //Muestro el usuario
-                                        echo "Password: " . $password; //Muestro la password
-                                    }
-                                }
-                            } catch (PDOException $ex) {
-                                $errorExcepcion = $miExcepcionPDO->getCode(); // Almacenamos el código del error de la excepción en la variable '$errorExcepcion'
-                                $mensajeExcepcion = $miExcepcionPDO->getMessage(); // Almacenamos el mensaje de la excepción en la variable '$mensajeExcepcion'
-
-                                echo "<span style='color:red;'>Error: </span>" . $mensajeExcepcion . "<br>"; // Mostramos el mensaje de la excepción
-                                echo "<span style='color:red;'>Código del error: </span>" . $errorExcepcion; // Mostramos el código de la excepción
-                            } finally {
-                                //Cierro la conexion
-                                unset($miDB);
-                            }
-                        }
-                        ?>
                     </div>
                 </div>
             </div>
