@@ -3,7 +3,7 @@
  * @author Ismael Ferreras García
  * Mejorado por @author Carlos García Cachón
  * @version 1.2
- * @since 21/11/2023
+ * @since 27/11/2023
  */
 // Configuración de conexión con la base de datos
 require_once '../config/confDB.php';
@@ -17,25 +17,30 @@ try {
         header('WWW-Authenticate: Basic realm="Acceso restringido"');
         header('HTTP/1.0 401 Unauthorized');
         echo 'Se requieren credenciales para acceder a esta página.';
+        //Le damos la opcion al usuario de volver al home mediante este enlace
+        echo("<button><a href='http://daw214.isauces.local/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a></button>");
         exit();
     }
 
-    $usuario = $_SERVER['PHP_AUTH_USER'];
-    $contrasena = $_SERVER['PHP_AUTH_PW'];
-    $hashContrasena = hash('sha256', $usuario . $contrasena);
+    $usuario = $_SERVER['PHP_AUTH_USER']; // Guardamos el nombre de usuario recibido por '$_SERVER'
+    $contrasena = $_SERVER['PHP_AUTH_PW']; // Guardamos la contraseña del usuario recibido por '$_SERVER'
+    $hashContrasena = hash('sha256', $usuario . $contrasena); // Guardamos la contraseña codificada
 
-    $sql = "SELECT * FROM T01_Usuario WHERE T01_CodUsuario = ? AND T01_Password = ?";
-    $stmt = $miDB->prepare($sql);
+    $sql = "SELECT * FROM T01_Usuario WHERE T01_CodUsuario = ? AND T01_Password = ?"; // Creamos la consulta a la BD 
+    $stmt = $miDB->prepare($sql); // Preparamos la consulta la ejecutamos
     $stmt->execute([$usuario, $hashContrasena]);
 
-    $result = $stmt->fetch(PDO::FETCH_OBJ);
+    $result = $stmt->fetch(PDO::FETCH_OBJ); // Lo que devuelve la consulta, lo pasamos a un objeto
 
-    if ($result) {
-        $nombre_usuario = $result->T01_CodUsuario;
+    if ($result) { // Si no a fallado la consulta mostramos el siguiente mensaje juntos con la decripcion del usuario que se a 'logeado'
+        $nombre_usuario = $result->T01_DescUsuario;
         echo ("<div class='fs-4 text'>Credenciales correctas<br><br>Bienvenido, $nombre_usuario!</div>");
     } else {
-        header('HTTP/1.1 401 Unauthorized');
+        header('HTTP/1.1 401 Unauthorized'); // Mensaje de error
         echo 'Credenciales incorrectas. Acceso denegado.';
+        //Le damos la opcion al usuario de volver al home mediante este enlace
+        echo("<button><a href='http://daw214.isauces.local/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a></button>");
+        exit();
     }
 } catch (PDOException $miExcepcionPDO) {
     $errorExcepcion = $miExcepcionPDO->getCode(); // Almacenamos el código del error de la excepción en la variable '$errorExcepcion'
