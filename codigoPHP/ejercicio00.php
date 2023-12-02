@@ -30,79 +30,72 @@
                 <div class="col d-flex justify-content-start">
                     
                     <?php
-                    $key = "";
-                    $value = "";
                     echo "<div>";
-                    echo ("<h2>Variables Superglobales: </h2>");
-                    echo("<p>Contenido de <span style='color:green'>".'$GLOBALS'."</span> es de tipo <span>".gettype($GLOBALS)."</span> y tiene el valor ".print_r($GLOBALS)."</p>");
-                    if(isset($_SESSION)) {
-                        echo("<p>Contenido de <span style='color:green'>".'$_SESSION'."</span> es de tipo <span>".gettype($_SESSION)."</span> y contiene: <br>");
-                        foreach ($_SESSION as $key => $value) {
-                            echo "{$key} => {$value}<br>";
+                    // $_SERVER
+                    echo('<div class="ejercicio">');
+                    echo('<h3>$_SERVER</h3>');
+                    foreach ($_SERVER as $key => $valor) {
+                        echo('<u>'.$key.'</u> => <b>'.$valor.'</b><br>');
+                    }
+                    echo('</div>');
+
+                    // $_COOKIE
+                    echo('<div class="ejercicio">');
+                    echo('<h3>$_COOKIE</h3>');
+                    foreach ($_COOKIE as $key => $valor) {
+                        echo('<u>'.$key.'</u> => <b>'.$valor.'</b><br>');
+                    }
+                    echo('</div>');
+
+                    // $GLOBALS
+                    echo('<div class="ejercicio">');
+                    echo('<h3>$GLOBALS</h3>');
+                    foreach ($GLOBALS as $key => $valor) {
+                        foreach ($valor as $clave => $valor2) {
+                            echo('<u>'.$clave.'</u> => <b>'.$valor2.'</b><br>');
                         }
-                    }else {
-                        echo("<p>Contenido de <span style='color:red'>".'$_SESSION'."</span> esta vacia.");
                     }
-                    echo("</p>");
-                    if (empty($_COOKIE)) {
-                        echo("<p>Contenido de <span style='color:green'>".'$_COOKIE'."</span> es de tipo <span>".gettype($_COOKIE)."</span> y contiene: <br>");
-                        foreach ($_COOKIE as $key => $value) {
-                            echo "{$key} => {$value}<br>";
-                        }
-                    } else {
-                        echo("<p>Contenido de <span style='color:red'>".'$_COOKIE'."</span> esta vacia.");
+                    echo('</div>');
+
+                    // $_GET
+                    echo('<div class="ejercicio">');
+                    echo('<h3>$_GET</h3>');
+                    foreach ($_GET as $key => $valor) {
+                        echo('<u>'.$key.'</u> => <b>'.$valor.'</b><br>');
                     }
-                    echo("</p>");
-                    echo("<p>Contenido de <span style='color:green'>".'$_SERVER'."</span> es de tipo <span>".gettype($_SERVER)."</span> y contiene: <br>");
-                    foreach ($_SERVER as $key => $value) {
-                        echo "{$key} => {$value}<br>";
+                    echo('</div>');
+
+                    // $_POST
+                    echo('<div class="ejercicio">');
+                    echo('<h3>$_POST</h3>');
+                    foreach ($_POST as $key => $valor) {
+                        echo('<u>'.$key.'</u> => <b>'.$valor.'</b><br>');
                     }
-                    echo("</p>");
-                    if (is_null($_GET)) {
-                        echo("<p>Contenido de <span style='color:green'>".'$_GET'."</span> es de tipo <span>".gettype($_GET)."</span> y contiene: <br>");
-                        foreach ($_GET as $key => $value) {
-                            echo "{$key} => {$value}<br>";
-                        }
-                    } else {
-                        echo("<p>Contenido de <span style='color:red'>".'$_GET'."</span> esta vacia.");
+                    echo('</div>');
+
+                    // $_FILES
+                    echo('<div class="ejercicio">');
+                    echo('<h3>$_FILES</h3>');
+                    foreach ($_FILES as $key => $valor) {
+                        echo('<u>'.$key.'</u> => <b>'.$valor.'</b><br>');
                     }
-                    echo("</p>");
-                    if (is_null($_POST)) {
-                        echo("<p>Contenido de <span style='color:green'>".'$_POST'."</span> es de tipo <span>".gettype($_POST)."</span> y contiene: <br>");
-                        foreach ($_POST as $key => $value) {
-                            echo "{$key} => {$value}<br>";
-                        }
-                    } else {
-                        echo("<p>Contenido de <span style='color:red'>".'$_POST'."</span> esta vacia.");
+                    echo('</div>');
+
+                    // $_REQUEST
+                    echo('<div class="ejercicio">');
+                    echo('<h3>$_REQUEST</h3>');
+                    foreach ($_REQUEST as $key => $valor) {
+                        echo('<u>'.$key.'</u> => <b>'.$valor.'</b><br>');
                     }
-                    echo("</p>");
-                    if (is_null($_FILES)) {
-                        echo("<p>Contenido de <span style='color:green'>".'$_FILES'."</span> es de tipo <span>".gettype($_FILES)."</span> y contiene: <br>");
-                        foreach ($_FILES as $key => $value) {
-                            echo "{$key} => {$value}<br>";
-                        }
-                    } else {
-                        echo("<p>Contenido de <span style='color:red'>".'$_FILES'."</span> esta vacia.");
+                    echo('</div>');
+
+                    // $_ENV
+                    echo('<div class="ejercicio">');
+                    echo('<h3>$_ENV</h3>');
+                    foreach ($_ENV as $key => $valor) {
+                        echo('<u>'.$key.'</u> => <b>'.$valor.'</b><br>');
                     }
-                    echo("</p>");
-                    if (is_null($_REQUEST)) {
-                        echo("<p>Contenido de <span style='color:green'>".'$_REQUEST'."</span> es de tipo <span>".gettype($_REQUEST)."</span> y contiene: <br>");
-                        foreach ($_REQUEST as $key => $value) {
-                            echo "{$key} => {$value}<br>";
-                        }
-                    } else {
-                        echo("<p>Contenido de <span style='color:red'>".'$_REQUEST'."</span> esta vacia.");
-                    }
-                    echo("</p>");
-                    if (is_null($_ENV)) {
-                        echo("<p>Contenido de <span style='color:green'>".'$_ENV'."</span> es de tipo <span>".gettype($_ENV)."</span> y contiene: <br>");
-                        foreach ($_ENV as $key => $value) {
-                            echo "{$key} => {$value}<br>";
-                        }
-                    } else {
-                        echo("<p>Contenido de <span style='color:red'>".'$_ENV'."</span> esta vacia.");
-                    }
-                    echo("</p>");
+                    echo('</div>');
                     echo "</div>";
                     ?>
                 </div> 

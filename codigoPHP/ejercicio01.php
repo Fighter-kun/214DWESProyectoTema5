@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Alvaro Cordero Miñambres
- * Adaptado por @author Carlos García Cachón
+ * Mejorado por @author Carlos García Cachón
  * @version 1.1
  * @since 21/11/2023
  * @copyright Todos los derechos reservados Alvaro Cordero y Carlos García
@@ -35,8 +35,13 @@ if (!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_PW']) || $_SE
     //Mostramos un error de autenticacion
     echo("Error de auntenticacion!!<br>");
 
-    //Le damos la opcion al usuario de volver al home diante este enlace
+    // En función de si estamos en el servidor de Desarrollo o Explotación nos mostrará un link u otro para volver al 'home'
+    if ($_SERVER['SERVER_NAME'] == 'daw214.isauces.local') {
     echo("<a href='http://daw214.isauces.local/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a>");
+    } elseif ($_SERVER['SERVER_NAME'] == 'daw214.ieslossauces.es') {
+        echo("<a href='https://daw214.ieslossauces.es/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a>");
+    }
+    
 
     /**
      * @link https://www.php.net/manual/es/function.exit.php
