@@ -6,7 +6,7 @@
  * @since 27/11/2023
  */
 // Configuración de conexión con la base de datos
-require_once '../config/confDB.php';
+require_once '../config/confDBPDO.php';
 
 try {
     // Establecemos la conexión por medio de PDO

@@ -1,8 +1,8 @@
 <?php
-// Configuración de conexión con la base de datos
-require_once '../config/confDB.php';
-
 try {
+    define('DSN', 'mysql:host=db5014806801.hosting-data.io;dbname=dbs12302455'); // Host y nombre de la base de datos
+    define('USERNAME','dbu132588'); // Nombre de usuario de la base de datos
+    define('PASSWORD','daw2_Sauces'); // Contraseña de la base de datos
     // Crear conexión
     $conn = new PDO(DSN, USERNAME, PASSWORD);
 

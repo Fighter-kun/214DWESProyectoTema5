@@ -34,7 +34,7 @@
                  * @since 27/11/2023
                  */
                 //Muestra el codigo del archivo de la ruta especificada.
-                highlight_file('../config/confDB.php');
+                highlight_file('../config/confDBPDO.php');
             ?>
         </div>
     </main>
@@ -48,7 +48,7 @@
                 <a href="../indexProyectoTema5.html" style="color: white; text-decoration: none;"> Inicio</a>
             </div>
             <div class="footer-item">
-                <a href="https://github.com/Fighter-kun?tab=repositories" target="_blank"><img
+                <a href="https://github.com/Fighter-kun/214DWESProyectoTema5.git" target="_blank"><img
                         src="../webroot/media/images/github.png" alt="LogoGitHub" /></a>
             </div>
         </div>
