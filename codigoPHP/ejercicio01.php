@@ -10,6 +10,8 @@
  * ProyectoTema5
  * 
  */
+// Configuración de conexión al archivo PHP
+require_once '../config/confApp.php';
 /**
  * @link https://www.php.net/manual/en/reserved.variables.server
  * 
@@ -36,11 +38,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_PW']) || $_SE
     echo("Error de auntenticacion!!<br>");
 
     // En función de si estamos en el servidor de Desarrollo o Explotación nos mostrará un link u otro para volver al 'home'
-    if ($_SERVER['SERVER_NAME'] == 'daw214.isauces.local') {
-    echo("<a href='http://daw214.isauces.local/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a>");
-    } elseif ($_SERVER['SERVER_NAME'] == 'daw214.ieslossauces.es') {
-        echo("<a href='https://daw214.ieslossauces.es/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a>");
-    }
+    echo("<button><a href=".LINK.">Volver al home</a></button>");
     
 
     /**

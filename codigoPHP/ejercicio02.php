@@ -7,6 +7,8 @@
  */
 // Configuración de conexión con la base de datos
 require_once '../config/confDBPDO.php';
+// Configuración de conexión al archivo PHP
+require_once '../config/confApp.php';
 
 try {
     // Establecemos la conexión por medio de PDO
@@ -18,11 +20,7 @@ try {
         header('HTTP/1.0 401 Unauthorized');
         echo 'Se requieren credenciales para acceder a esta página.';
         //Le damos la opcion al usuario de volver al home mediante este enlace
-        if ($_SERVER['SERVER_NAME'] == 'daw214.isauces.local') {
-        echo("<button><a href='http://daw214.isauces.local/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a></button>");
-        } elseif ($_SERVER['SERVER_NAME'] == 'daw214.ieslossauces.es') {
-            echo("<button><a href='https://daw214.ieslossauces.es/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a></button>");
-        }
+        echo("<button><a href=".LINK.">Volver al home</a></button>");
         exit();
     }
 
@@ -43,11 +41,7 @@ try {
         header('HTTP/1.1 401 Unauthorized'); // Mensaje de error
         echo 'Credenciales incorrectas. Acceso denegado.';
         // En función de si estamos en el servidor de Desarrollo o Explotación nos mostrará un link u otro para volver al 'home'
-        if ($_SERVER['SERVER_NAME'] == 'daw214.isauces.local') {
-        echo("<a href='http://daw214.isauces.local/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a>");
-        } elseif ($_SERVER['SERVER_NAME'] == 'daw214.ieslossauces.es') {
-            echo("<a href='https://daw214.ieslossauces.es/214DWESProyectoTema5/indexProyectoTema5.html'>Volver al home</a>");
-        }
+        echo("<button><a href=".LINK.">Volver al home</a></button>");
         exit();
     }
 } catch (PDOException $miExcepcionPDO) {
