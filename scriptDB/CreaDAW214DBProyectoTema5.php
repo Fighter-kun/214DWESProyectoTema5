@@ -24,7 +24,7 @@ try {
                 T02_VolumenDeNegocio FLOAT,
                 T02_FechaBajaDepartamento DATETIME
             )ENGINE=INNODB;
-            CREATE TABLE dbs12302455.T06_Animales (
+            CREATE TABLE IF NOT EXISTS dbs12302455.T06_Animales (
                 T06_CodAnimal CHAR(3) PRIMARY KEY,
                 T06_DescAnimal VARCHAR(255),
                 T06_FechaNacimiento DATETIME DEFAULT CURRENT_TIMESTAMP,
