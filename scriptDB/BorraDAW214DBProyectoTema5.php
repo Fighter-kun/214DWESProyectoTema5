@@ -8,8 +8,9 @@ try {
 
     // Creamos una variable con varias consultas a realizar
     $consulta = <<<CONSULTA
-            DROP TABLE dbs12302455.T02_Departamento;
             DROP TABLE dbs12302455.T01_Usuario;
+            DROP TABLE dbs12302455.T02_Departamento;
+            DROP TABLE dbs12302455.T06_Animal;
             CONSULTA;
     $consultaPreparada = $conn->prepare($consulta);
     $consultaPreparada->execute();
