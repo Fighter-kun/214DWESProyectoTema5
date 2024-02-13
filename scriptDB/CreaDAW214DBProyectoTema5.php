@@ -13,7 +13,7 @@ try {
                 T01_Password VARCHAR(64),
                 T01_DescUsuario VARCHAR(255),
                 T01_NumConexiones INT DEFAULT 0,
-                T01_FechaHoraUltimaConexion DATETIME DEFAULT DEFAULT NULL,
+                T01_FechaHoraUltimaConexion DATETIME DEFAULT NULL,
                 T01_Perfil ENUM('usuario','administrador') DEFAULT 'usuario',
                 T01_ImagenUsuario BLOB
             )ENGINE=INNODB;
@@ -24,14 +24,14 @@ try {
                 T02_VolumenDeNegocio FLOAT,
                 T02_FechaBajaDepartamento DATETIME
             )ENGINE=INNODB;
-            CREATE TABLE IF NOT EXISTS dbs12302455.T06_Animales (
+            CREATE TABLE dbs12302455.T06_Animal (
                 T06_CodAnimal CHAR(3) PRIMARY KEY,
                 T06_DescAnimal VARCHAR(255),
                 T06_FechaNacimiento DATETIME DEFAULT CURRENT_TIMESTAMP,
                 T06_Sexo ENUM('macho','hembra'),
                 T06_Raza VARCHAR(255),
                 T06_Precio DECIMAL(10, 2),
-                T06_FechaBaja DATETIME DEFAULT NULL;
+                T06_FechaBaja DATETIME DEFAULT NULL
             )ENGINE=INNODB;
             CONSULTA;
     $consultaPreparada = $conn->prepare($consulta);
